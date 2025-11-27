@@ -1,0 +1,20 @@
+.app-shell {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.app-header {
+  padding: 1.25rem;
+  background: linear-gradient(135deg, #2563eb, #16a34a);
+  color: #fff;
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.app-content {
+  flex: 1;
+  padding: 2rem;
+  background-color: #f8fafc;
+}
