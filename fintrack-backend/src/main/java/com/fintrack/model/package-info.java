@@ -1,1 +1,1 @@
-package com.fintrack.model;\n\n// Placeholder for model components
+package com.fintrack.model;// Placeholder for model components

@@ -8,5 +8,6 @@ class FintrackApplicationTests {
 
     @Test
     void contextLoads() {
+        // Test that Spring context loads successfully
     }
 }

@@ -1,1 +1,1 @@
-package com.fintrack.repository;\n\n// Placeholder for repository components
+package com.fintrack.repository;// Placeholder for repository components
