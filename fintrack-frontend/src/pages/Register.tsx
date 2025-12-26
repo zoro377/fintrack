@@ -26,7 +26,33 @@ const Register = () => {
       await authService.register({ name, email, password });
       navigate('/dashboard');
     } catch (err: any) {
-      setError(err.response?.data?.message || 'Registration failed. Email may already be in use.');
+      console.error('Registration error:', err);
+      
+      // More detailed error handling
+      let errorMessage = 'Registration failed. ';
+      
+      if (!err.response) {
+        // Network error - backend not reachable
+        errorMessage += 'Cannot connect to server. Make sure the backend is running on http://localhost:8080';
+      } else if (err.response.status === 409) {
+        // Conflict - email already exists
+        errorMessage = err.response?.data?.message || err.response?.data?.error || 'Email is already registered';
+      } else if (err.response.status === 400) {
+        // Validation error
+        const validationErrors = err.response?.data?.details;
+        if (validationErrors) {
+          errorMessage = 'Validation failed: ' + Object.values(validationErrors).join(', ');
+        } else {
+          errorMessage = err.response?.data?.message || err.response?.data?.error || 'Invalid input data';
+        }
+      } else {
+        errorMessage = err.response?.data?.message || 
+                      err.response?.data?.error || 
+                      err.message || 
+                      'An unexpected error occurred';
+      }
+      
+      setError(errorMessage);
     } finally {
       setLoading(false);
     }
@@ -82,4 +108,3 @@ const Register = () => {
 };
 
 export default Register;
-

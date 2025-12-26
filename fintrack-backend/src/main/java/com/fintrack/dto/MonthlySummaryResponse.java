@@ -1,15 +1,28 @@
 package com.fintrack.dto;
 
-import lombok.Builder;
-import lombok.Value;
-
 import java.math.BigDecimal;
 
-@Value
-@Builder
 public class MonthlySummaryResponse {
-    int year;
-    int month;
-    BigDecimal total;
+    private final int year;
+    private final int month;
+    private final BigDecimal total;
+
+    public MonthlySummaryResponse(int year, int month, BigDecimal total) {
+        this.year = year;
+        this.month = month;
+        this.total = total;
+    }
+
+    public int getYear() {
+        return year;
+    }
+
+    public int getMonth() {
+        return month;
+    }
+
+    public BigDecimal getTotal() {
+        return total;
+    }
 }
 

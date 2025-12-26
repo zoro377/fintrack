@@ -1,14 +1,22 @@
 package com.fintrack.dto;
 
-import lombok.Builder;
-import lombok.Value;
-
 import java.math.BigDecimal;
 
-@Value
-@Builder
 public class PredictedExpenseResponse {
-    BigDecimal predictedAmount;
-    int monthsConsidered;
+    private final BigDecimal predictedAmount;
+    private final int monthsConsidered;
+
+    public PredictedExpenseResponse(BigDecimal predictedAmount, int monthsConsidered) {
+        this.predictedAmount = predictedAmount;
+        this.monthsConsidered = monthsConsidered;
+    }
+
+    public BigDecimal getPredictedAmount() {
+        return predictedAmount;
+    }
+
+    public int getMonthsConsidered() {
+        return monthsConsidered;
+    }
 }
 

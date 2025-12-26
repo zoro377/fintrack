@@ -1,15 +1,23 @@
 package com.fintrack.dto;
 
-import lombok.Builder;
-import lombok.Value;
-
 import java.math.BigDecimal;
 import java.time.LocalDate;
 
-@Value
-@Builder
 public class TrendPointResponse {
-    LocalDate date;
-    BigDecimal total;
+    private final LocalDate date;
+    private final BigDecimal total;
+
+    public TrendPointResponse(LocalDate date, BigDecimal total) {
+        this.date = date;
+        this.total = total;
+    }
+
+    public LocalDate getDate() {
+        return date;
+    }
+
+    public BigDecimal getTotal() {
+        return total;
+    }
 }
 
