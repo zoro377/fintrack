@@ -1,15 +1,26 @@
 package com.fintrack.dto;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-
-@Data
-@Builder
-@AllArgsConstructor
 public class AuthResponse {
-    private String token;
-    private String name;
-    private String email;
+    private final String token;
+    private final String name;
+    private final String email;
+
+    public AuthResponse(String token, String name, String email) {
+        this.token = token;
+        this.name = name;
+        this.email = email;
+    }
+
+    public String getToken() {
+        return token;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public String getEmail() {
+        return email;
+    }
 }
 

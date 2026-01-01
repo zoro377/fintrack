@@ -1,1 +1,1 @@
-package com.fintrack.config;\n\n// Placeholder for config components
+package com.fintrack.config;// Placeholder for config components

@@ -60,6 +60,7 @@ public class GlobalExceptionHandler {
         body.put("timestamp", LocalDateTime.now());
         body.put("status", status.value());
         body.put("error", message);
+        body.put("message", message); // Add message field for frontend compatibility
         return ResponseEntity.status(status).body(body);
     }
 }

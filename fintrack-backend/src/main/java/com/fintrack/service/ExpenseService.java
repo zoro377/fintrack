@@ -28,14 +28,15 @@ public class ExpenseService {
 
     public ExpenseResponse createExpense(ExpenseRequest request) {
         User user = getCurrentUser();
-        Expense expense = Expense.builder()
-                .user(user)
-                .categoryId(request.getCategoryId())
-                .amount(request.getAmount())
-                .description(request.getDescription())
-                .date(request.getDate())
-                .paymentMode(request.getPaymentMode())
-                .build();
+        Expense expense = new Expense(
+                null,
+                user,
+                request.getCategoryId(),
+                request.getAmount(),
+                request.getDescription(),
+                request.getDate(),
+                request.getPaymentMode()
+        );
         Expense saved = expenseRepository.save(expense);
         return toResponse(saved);
     }
@@ -83,15 +84,15 @@ public class ExpenseService {
     }
 
     private ExpenseResponse toResponse(Expense expense) {
-        return ExpenseResponse.builder()
-                .id(expense.getId())
-                .userId(expense.getUser().getId())
-                .categoryId(expense.getCategoryId())
-                .amount(expense.getAmount())
-                .description(expense.getDescription())
-                .date(expense.getDate())
-                .paymentMode(expense.getPaymentMode())
-                .build();
+        return new ExpenseResponse(
+                expense.getId(),
+                expense.getUser().getId(),
+                expense.getCategoryId(),
+                expense.getAmount(),
+                expense.getDescription(),
+                expense.getDate(),
+                expense.getPaymentMode()
+        );
     }
 }
 

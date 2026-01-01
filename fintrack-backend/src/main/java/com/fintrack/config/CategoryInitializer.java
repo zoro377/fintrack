@@ -26,7 +26,7 @@ public class CategoryInitializer {
     public ApplicationRunner categorySeedRunner(CategoryRepository categoryRepository) {
         return args -> DEFAULT_CATEGORIES.stream()
                 .filter(name -> !categoryRepository.existsByNameAndUserIsNull(name))
-                .map(name -> Category.builder().name(name).description(name + " expenses").build())
+                .map(name -> new Category(null, name, name + " expenses", null))
                 .forEach(categoryRepository::save);
     }
 }

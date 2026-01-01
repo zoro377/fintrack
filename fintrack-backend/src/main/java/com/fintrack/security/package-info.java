@@ -1,1 +1,1 @@
-package com.fintrack.security;\n\n// Placeholder for security components
+package com.fintrack.security;// Placeholder for security components

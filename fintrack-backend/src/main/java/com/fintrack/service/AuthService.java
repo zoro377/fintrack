@@ -35,19 +35,14 @@ public class AuthService {
         if (userRepository.existsByEmail(request.getEmail())) {
             throw new ResourceAlreadyExistsException("Email is already registered");
         }
-        User user = User.builder()
-                .name(request.getName())
-                .email(request.getEmail())
-                .password(passwordEncoder.encode(request.getPassword()))
-                .role("USER")
-                .build();
+        User user = new User();
+        user.setName(request.getName());
+        user.setEmail(request.getEmail());
+        user.setPassword(passwordEncoder.encode(request.getPassword()));
+        user.setRole("USER");
         userRepository.save(user);
         String token = tokenProvider.generateToken(user.getEmail());
-        return AuthResponse.builder()
-                .token(token)
-                .name(user.getName())
-                .email(user.getEmail())
-                .build();
+        return new AuthResponse(token, user.getName(), user.getEmail());
     }
 
     public AuthResponse login(LoginRequest request) {
@@ -60,11 +55,7 @@ public class AuthService {
         User user = userRepository.findByEmail(request.getEmail())
                 .orElseThrow(() -> new AuthenticationFailedException("User not found"));
         String token = tokenProvider.generateToken(user.getEmail());
-        return AuthResponse.builder()
-                .token(token)
-                .name(user.getName())
-                .email(user.getEmail())
-                .build();
+        return new AuthResponse(token, user.getName(), user.getEmail());
     }
 }
 

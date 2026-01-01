@@ -1,1 +1,1 @@
-package com.fintrack.dto;\n\n// Placeholder for dto components
+package com.fintrack.dto;// Placeholder for dto components
