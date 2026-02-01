@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import { formatINR } from '../currency';
 import { analyticsService, MonthlySummary, CategorySummary, TrendPoint, PredictedExpense } from '../services/analyticsService';
 import './Analytics.css';
 
@@ -35,10 +36,6 @@ const Analytics = () => {
     }
   };
 
-  const formatCurrency = (amount: number) => {
-    return new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(amount);
-  };
-
   const getMaxAmount = (data: any[]) => {
     if (data.length === 0) return 1;
     return Math.max(...data.map(d => d.total || 0), 1);
@@ -59,7 +56,7 @@ const Analytics = () => {
         <div className="prediction-card">
           <h2>Next Month Prediction</h2>
           <div className="prediction-content">
-            <div className="prediction-amount">{formatCurrency(predicted.predictedAmount)}</div>
+            <div className="prediction-amount">{formatINR(predicted.predictedAmount)}</div>
             <p>Based on analysis of {predicted.monthsConsidered} months of data</p>
           </div>
         </div>
@@ -80,7 +77,7 @@ const Analytics = () => {
                       className="bar"
                       style={{ width: `${(item.total / maxMonthly) * 100}%` }}
                     ></div>
-                    <span className="bar-value">{formatCurrency(item.total)}</span>
+                    <span className="bar-value">{formatINR(item.total)}</span>
                   </div>
                 </div>
               ))}
@@ -102,7 +99,7 @@ const Analytics = () => {
                       className="bar category-bar"
                       style={{ width: `${(item.total / maxCategory) * 100}%` }}
                     ></div>
-                    <span className="bar-value">{formatCurrency(item.total)}</span>
+                    <span className="bar-value">{formatINR(item.total)}</span>
                   </div>
                 </div>
               ))}
@@ -119,7 +116,7 @@ const Analytics = () => {
               {yearly.map(item => (
                 <div key={item.year} className="yearly-item">
                   <span className="year">{item.year}</span>
-                  <span className="amount">{formatCurrency(item.total)}</span>
+                  <span className="amount">{formatINR(item.total)}</span>
                   <span className="count">{item.count} expenses</span>
                 </div>
               ))}
@@ -136,7 +133,7 @@ const Analytics = () => {
               {trends.slice(-10).map((item, idx) => (
                 <div key={idx} className="trend-item">
                   <span className="date">{new Date(item.date).toLocaleDateString()}</span>
-                  <span className="amount">{formatCurrency(item.total)}</span>
+                  <span className="amount">{formatINR(item.total)}</span>
                 </div>
               ))}
             </div>

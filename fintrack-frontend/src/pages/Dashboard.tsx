@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
+import { formatINR } from '../currency';
 import { analyticsService, MonthlySummary, CategorySummary, PredictedExpense } from '../services/analyticsService';
 import { expenseService, Expense } from '../services/expenseService';
 import './Dashboard.css';
@@ -54,13 +55,6 @@ const Dashboard = () => {
     }
   };
 
-  const formatCurrency = (amount: number) => {
-    return new Intl.NumberFormat('en-US', {
-      style: 'currency',
-      currency: 'USD'
-    }).format(amount);
-  };
-
   if (loading) {
     return <div className="loading">Loading dashboard...</div>;
   }
@@ -75,21 +69,21 @@ const Dashboard = () => {
       <div className="summary-cards">
         <div className="summary-card">
           <h3>Monthly Total</h3>
-          <p className="amount">{formatCurrency(monthlyTotal)}</p>
+          <p className="amount">{formatINR(monthlyTotal)}</p>
         </div>
         <div className="summary-card">
           <h3>Yearly Total</h3>
-          <p className="amount">{formatCurrency(yearlyTotal)}</p>
+          <p className="amount">{formatINR(yearlyTotal)}</p>
         </div>
         <div className="summary-card">
           <h3>Top Category</h3>
           <p className="amount">{topCategory}</p>
-          <p className="sub-amount">{formatCurrency(topCategoryTotal)}</p>
+          <p className="sub-amount">{formatINR(topCategoryTotal)}</p>
         </div>
         {predicted && (
           <div className="summary-card predicted">
             <h3>Next Month Prediction</h3>
-            <p className="amount">{formatCurrency(Number(predicted.predictedAmount ?? 0))}</p>
+            <p className="amount">{formatINR(Number(predicted.predictedAmount ?? 0))}</p>
             <p className="sub-text">Based on {predicted.monthsConsidered} months</p>
           </div>
         )}
@@ -108,7 +102,7 @@ const Dashboard = () => {
                     <strong>{expense.description || 'No description'}</strong>
                     <span className="category">{expense.categoryName || 'Uncategorized'}</span>
                   </div>
-                  <div className="expense-amount">{formatCurrency(expense.amount)}</div>
+                  <div className="expense-amount">{formatINR(Number(expense.amount))}</div>
                 </div>
               ))}
               <Link to="/expenses" className="view-all">View All Expenses →</Link>

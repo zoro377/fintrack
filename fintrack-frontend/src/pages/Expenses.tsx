@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useNavigate, useParams, Link } from 'react-router-dom';
+import { formatINR } from '../currency';
 import { expenseService, Expense, ExpenseRequest } from '../services/expenseService';
 import { categoryService, Category } from '../services/categoryService';
 import './Expenses.css';
@@ -37,10 +38,6 @@ const Expenses = () => {
     } catch (error) {
       alert('Failed to delete expense');
     }
-  };
-
-  const formatCurrency = (amount: number) => {
-    return new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(amount);
   };
 
   const formatDate = (dateStr: string) => {
@@ -81,7 +78,7 @@ const Expenses = () => {
                   <td>{formatDate(expense.date)}</td>
                   <td>{expense.description || '-'}</td>
                   <td>{expense.categoryName || 'Uncategorized'}</td>
-                  <td className="amount">{formatCurrency(expense.amount)}</td>
+                  <td className="amount">{formatINR(Number(expense.amount))}</td>
                   <td>{expense.paymentMode}</td>
                   <td>
                     <Link to={`/expenses/${expense.id}/edit`} className="btn-edit">Edit</Link>
