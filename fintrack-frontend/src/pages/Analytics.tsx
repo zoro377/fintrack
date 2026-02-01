@@ -72,9 +72,9 @@ const Analytics = () => {
             <p className="empty-state">No data available</p>
           ) : (
             <div className="chart-container">
-              {monthly.slice(-6).map(item => (
-                <div key={item.month} className="bar-item">
-                  <div className="bar-label">{new Date(item.month + '-01').toLocaleDateString('en-US', { month: 'short', year: 'numeric' })}</div>
+              {monthly.slice(-6).map((item, idx) => (
+                <div key={`${item.year}-${item.month}-${idx}`} className="bar-item">
+                  <div className="bar-label">{new Date(item.year, item.month - 1, 1).toLocaleDateString('en-US', { month: 'short', year: 'numeric' })}</div>
                   <div className="bar-wrapper">
                     <div
                       className="bar"
