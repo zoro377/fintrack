@@ -46,11 +46,12 @@ public class CategoryService {
         if (existsDefault || categoryRepository.existsByNameAndUser(request.getName(), user)) {
             throw new ResourceAlreadyExistsException("Category name already exists");
         }
-        Category category = Category.builder()
-                .name(request.getName())
-                .description(request.getDescription())
-                .user(user)
-                .build();
+        Category category = new Category(
+                null,
+                request.getName(),
+                request.getDescription(),
+                user
+        );
         return toResponse(categoryRepository.save(category));
     }
 
@@ -77,12 +78,12 @@ public class CategoryService {
     }
 
     private CategoryResponse toResponse(Category category) {
-        return CategoryResponse.builder()
-                .id(category.getId())
-                .name(category.getName())
-                .description(category.getDescription())
-                .isDefault(category.getUser() == null)
-                .build();
+        return new CategoryResponse(
+                category.getId(),
+                category.getName(),
+                category.getDescription(),
+                category.getUser() == null
+        );
     }
 }
 

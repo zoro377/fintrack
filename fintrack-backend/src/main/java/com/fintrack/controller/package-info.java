@@ -1,1 +1,1 @@
-package com.fintrack.controller;\n\n// Placeholder for controller components
+package com.fintrack.controller;// Placeholder for controller components

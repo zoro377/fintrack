@@ -1,1 +1,1 @@
-package com.fintrack.utils;\n\n// Placeholder for utils components
+package com.fintrack.utils;// Placeholder for utils components

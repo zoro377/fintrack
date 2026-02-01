@@ -51,11 +51,10 @@ public class AnalyticsService {
                         Collectors.mapping(Expense::getAmount,
                                 Collectors.reducing(BigDecimal.ZERO, BigDecimal::add))));
         return grouped.entrySet().stream()
-                .map(entry -> MonthlySummaryResponse.builder()
-                        .year(entry.getKey().getYear())
-                        .month(entry.getKey().getMonthValue())
-                        .total(entry.getValue())
-                        .build())
+                .map(entry -> new MonthlySummaryResponse(
+                        entry.getKey().getYear(),
+                        entry.getKey().getMonthValue(),
+                        entry.getValue()))
                 .sorted(Comparator.comparing(MonthlySummaryResponse::getYear)
                         .thenComparing(MonthlySummaryResponse::getMonth))
                 .collect(Collectors.toList());
@@ -72,10 +71,9 @@ public class AnalyticsService {
                         Collectors.mapping(Expense::getAmount,
                                 Collectors.reducing(BigDecimal.ZERO, BigDecimal::add))));
         return grouped.entrySet().stream()
-                .map(entry -> YearlySummaryResponse.builder()
-                        .year(entry.getKey().getValue())
-                        .total(entry.getValue())
-                        .build())
+                .map(entry -> new YearlySummaryResponse(
+                        entry.getKey().getValue(),
+                        entry.getValue()))
                 .sorted(Comparator.comparingInt(YearlySummaryResponse::getYear))
                 .collect(Collectors.toList());
     }
@@ -91,11 +89,10 @@ public class AnalyticsService {
                         Collectors.mapping(Expense::getAmount,
                                 Collectors.reducing(BigDecimal.ZERO, BigDecimal::add))));
         return grouped.entrySet().stream()
-                .map(entry -> CategorySummaryResponse.builder()
-                        .categoryId(entry.getKey())
-                        .categoryName(resolveCategoryName(entry.getKey()))
-                        .total(entry.getValue())
-                        .build())
+                .map(entry -> new CategorySummaryResponse(
+                        entry.getKey(),
+                        resolveCategoryName(entry.getKey()),
+                        entry.getValue()))
                 .sorted(Comparator.comparing(CategorySummaryResponse::getTotal).reversed())
                 .collect(Collectors.toList());
     }
@@ -117,10 +114,9 @@ public class AnalyticsService {
                         Collectors.mapping(Expense::getAmount,
                                 Collectors.reducing(BigDecimal.ZERO, BigDecimal::add))));
         return grouped.entrySet().stream()
-                .map(entry -> TrendPointResponse.builder()
-                        .date(entry.getKey())
-                        .total(entry.getValue())
-                        .build())
+                .map(entry -> new TrendPointResponse(
+                        entry.getKey(),
+                        entry.getValue()))
                 .sorted(Comparator.comparing(TrendPointResponse::getDate))
                 .collect(Collectors.toList());
     }
@@ -129,10 +125,7 @@ public class AnalyticsService {
         List<MonthlySummaryResponse> monthlySummaries = getMonthlySummary();
         int n = monthlySummaries.size();
         if (n < 2) {
-            return PredictedExpenseResponse.builder()
-                    .predictedAmount(BigDecimal.ZERO)
-                    .monthsConsidered(n)
-                    .build();
+            return new PredictedExpenseResponse(BigDecimal.ZERO, n);
         }
         double sumX = 0;
         double sumY = 0;
@@ -155,10 +148,7 @@ public class AnalyticsService {
             prediction = 0;
         }
         BigDecimal predictedAmount = BigDecimal.valueOf(prediction).setScale(2, RoundingMode.HALF_UP);
-        return PredictedExpenseResponse.builder()
-                .predictedAmount(predictedAmount)
-                .monthsConsidered(n)
-                .build();
+        return new PredictedExpenseResponse(predictedAmount, n);
     }
 
     private User getCurrentUser() {

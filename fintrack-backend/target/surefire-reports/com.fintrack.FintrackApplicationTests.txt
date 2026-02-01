@@ -1,4 +1,4 @@
 -------------------------------------------------------------------------------
 Test set: com.fintrack.FintrackApplicationTests
 -------------------------------------------------------------------------------
-Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 3.768 s -- in com.fintrack.FintrackApplicationTests
+Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 5.065 s -- in com.fintrack.FintrackApplicationTests

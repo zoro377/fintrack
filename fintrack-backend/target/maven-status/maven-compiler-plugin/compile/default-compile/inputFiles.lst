@@ -1,4 +1,5 @@
 D:\New folder (2)\fintrack-backend\src\main\java\com\fintrack\service\package-info.java
+D:\New folder (2)\fintrack-backend\src\main\java\com\fintrack\config\WebConfig.java
 D:\New folder (2)\fintrack-backend\src\main\java\com\fintrack\service\AuthService.java
 D:\New folder (2)\fintrack-backend\src\main\java\com\fintrack\controller\ReportController.java
 D:\New folder (2)\fintrack-backend\src\main\java\com\fintrack\exceptions\GlobalExceptionHandler.java
@@ -44,6 +45,7 @@ D:\New folder (2)\fintrack-backend\src\main\java\com\fintrack\dto\CategorySummar
 D:\New folder (2)\fintrack-backend\src\main\java\com\fintrack\exceptions\AuthenticationFailedException.java
 D:\New folder (2)\fintrack-backend\src\main\java\com\fintrack\config\package-info.java
 D:\New folder (2)\fintrack-backend\src\main\java\com\fintrack\utils\package-info.java
+D:\New folder (2)\fintrack-backend\src\main\java\com\fintrack\config\CorsConfig.java
 D:\New folder (2)\fintrack-backend\src\main\java\com\fintrack\dto\ExpenseRequest.java
 D:\New folder (2)\fintrack-backend\src\main\java\com\fintrack\dto\TrendPointResponse.java
 D:\New folder (2)\fintrack-backend\src\main\java\com\fintrack\service\AnalyticsService.java

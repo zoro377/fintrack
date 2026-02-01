@@ -1,1 +1,1 @@
-package com.fintrack.exceptions;\n\n// Placeholder for exceptions components
+package com.fintrack.exceptions;// Placeholder for exceptions components
