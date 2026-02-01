@@ -26,22 +26,23 @@ const Dashboard = () => {
         expenseService.getAll()
       ]);
 
-      // Calculate monthly total (current month)
-      const currentMonth = new Date().toISOString().slice(0, 7);
-      const currentMonthData = monthly.find(m => m.month === currentMonth);
-      setMonthlyTotal(currentMonthData?.total || 0);
+      // Calculate monthly total (current month) - backend returns year and month as numbers
+      const now = new Date();
+      const currentYear = now.getFullYear();
+      const currentMonthNum = now.getMonth() + 1; // 1-12
+      const currentMonthData = monthly.find(m => m.year === currentYear && m.month === currentMonthNum);
+      setMonthlyTotal(Number(currentMonthData?.total ?? 0));
 
       // Calculate yearly total
-      const currentYear = new Date().getFullYear();
       const yearly = await analyticsService.getYearlySummary();
       const currentYearData = yearly.find(y => y.year === currentYear);
-      setYearlyTotal(currentYearData?.total || 0);
+      setYearlyTotal(Number(currentYearData?.total ?? 0));
 
       // Top category
       if (category.length > 0) {
         const top = category[0];
         setTopCategory(top.categoryName);
-        setTopCategoryTotal(top.total);
+        setTopCategoryTotal(Number(top.total ?? 0));
       }
 
       setPredicted(predictedData);
@@ -88,7 +89,7 @@ const Dashboard = () => {
         {predicted && (
           <div className="summary-card predicted">
             <h3>Next Month Prediction</h3>
-            <p className="amount">{formatCurrency(predicted.predictedAmount)}</p>
+            <p className="amount">{formatCurrency(Number(predicted.predictedAmount ?? 0))}</p>
             <p className="sub-text">Based on {predicted.monthsConsidered} months</p>
           </div>
         )}

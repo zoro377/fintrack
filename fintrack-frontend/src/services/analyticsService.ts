@@ -1,9 +1,9 @@
 import api from './api';
 
 export interface MonthlySummary {
-  month: string;
+  year: number;
+  month: number;
   total: number;
-  count: number;
 }
 
 export interface YearlySummary {
